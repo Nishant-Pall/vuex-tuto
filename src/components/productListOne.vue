@@ -7,7 +7,7 @@
 				<span class="price">${{ product.price }}</span>
 			</li>
 		</ul>
-		<button v-on:click="reducePrice">Reduce price</button>
+		<button v-on:click="reducePrice(4)">Reduce price</button>
 	</div>
 </template>
 
@@ -22,8 +22,12 @@ export default {
 		},
 	},
 	methods: {
-		reducePrice: function() {
-			this.$store.commit("reducePrice");
+		reducePrice: function(amount) {
+			// this.$store.commit("reducePrice");
+			// better practice is to dispatch an action that commits the mutation itself
+			// helps in tracking async code which is not possible when commiting mutation from
+			// the methods themselves.
+			this.$store.dispatch("reducePrice", amount);
 		},
 	},
 };
