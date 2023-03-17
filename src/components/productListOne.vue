@@ -12,23 +12,30 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
 	computed: {
 		products() {
 			return this.$store.state.products;
 		},
-		saleProducts() {
-			return this.$store.getters.saleProducts;
-		},
+		// saleProducts() {
+		// 	return this.$store.getters.saleProducts;
+		// },
+		// we can map getters to a component by spreading the mapGetters method and pass in the getter name
+		//  we dont need to define explict computed values to get access to getters anymore
+		...mapGetters(["saleProducts"]),
 	},
 	methods: {
-		reducePrice: function(amount) {
-			// this.$store.commit("reducePrice");
-			// better practice is to dispatch an action that commits the mutation itself
-			// helps in tracking async code which is not possible when commiting mutation from
-			// the methods themselves.
-			this.$store.dispatch("reducePrice", amount);
-		},
+		// reducePrice: function(amount) {
+		// 	// this.$store.commit("reducePrice");
+		// 	// better practice is to dispatch an action that commits the mutation itself
+		// 	// helps in tracking async code which is not possible when commiting mutation from
+		// 	// the methods themselves.
+		// 	this.$store.dispatch("reducePrice", amount);
+		// },
+		// we can map actions instead of defining a function that dispatches it
+		...mapActions(["reducePrice"]),
 	},
 };
 </script>
